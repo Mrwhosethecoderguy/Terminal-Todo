@@ -30,18 +30,31 @@ fn main() {
         let mut content: String = String::new();
         if command == "add" {
             io::stdin().read_line(&mut content).expect("Could not read line");
+            if todo.len() == 1 {
+                if todo[0].content == "BLANK**".to_string() {
+                    todo.pop();
+                }
+            }
             let n_item = Item{content: content.trim().to_string(), done: false};
 
             todo.push(n_item);
         }
         else if command == "tick" {
             io::stdin().read_line(&mut content).expect("Could not read line");
+            if done.len() == 1 {
+                if done[0].content == "BLANK**".to_string() {
+                    done.pop();
+                }
+            }
             let idx: u32 = content.trim().parse().expect("Enter a number");
             if idx > todo.len().try_into().unwrap() {
                 println!("Please enter a valid number");
                 continue;
             }
             let idx: usize = (idx-1).try_into().unwrap();
+            if todo[idx].content == "BLANK**" {
+                continue;
+            }
             done.push(Item {content: todo[idx].content.to_string(), done: true});
             todo.remove(idx);
         }
@@ -78,6 +91,12 @@ fn main() {
         }
         else if command == "quit" {
             let mut data: String = String::new();
+            if done.len() == 0 {
+                done.push(Item {content: "BLANK**".to_string(), done:true});
+            }
+            if todo.len() == 0 {
+                todo.push(Item {content: "BLANK**".to_string(), done: false});
+            }
             for i in 0..todo.len() {
                 if i == todo.len()-1 {
                     data.push_str(&todo[i].content.to_string());
