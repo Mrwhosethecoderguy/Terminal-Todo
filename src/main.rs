@@ -34,11 +34,13 @@ fn main() {
 
             todo.push(n_item);
         }
-
-        
-
-
-
+        else if command == "tick" {
+            io::stdin().read_line(&mut content).expect("Could not read line");
+            let idx: u32 = content.trim().parse().unwrap();
+            let idx: usize = (idx-1).try_into().unwrap();
+            done.push(Item {content: todo[idx].content.to_string(), done: true});
+            todo.remove(idx);
+        }
     }
 
 
@@ -48,6 +50,7 @@ fn main() {
 
 fn show(todo: &Vec<Item>,done: &Vec<Item>) {
     println!("\n\n\t\t\tTODO: ");
+
     for (i,idx) in todo.iter().enumerate() {
         idx.disp(&i);
     }
