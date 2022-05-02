@@ -1,3 +1,4 @@
+
 use std::fs;
 use std::io;
 
@@ -34,20 +35,25 @@ fn main() {
             todo.push(n_item);
         }
 
+        
+
+
 
     }
+
+
     
     
 }
 
 fn show(todo: &Vec<Item>,done: &Vec<Item>) {
     println!("\n\n\t\t\tTODO: ");
-    for i in todo {
-        i.disp();
+    for (i,idx) in todo.iter().enumerate() {
+        idx.disp(&i);
     }
     println!("\n\n\t\t\tDONE: ");
-    for i in done {
-        i.disp();
+    for (i,idx) in done.iter().enumerate() {
+        idx.disp(&i);
     }
 }
 
@@ -57,9 +63,9 @@ struct Item {
 }
 
 impl Item {
-    fn disp(&self) {
+    fn disp(&self,idx: &usize) {
         let x = if self.done {"x"} else {" "};
-        println!("\t\t\t{} [ {} ]",self.content,x)
+        println!("\t\t\t{}. {} [ {} ]",idx+1,self.content,x)
     }
 
 }
