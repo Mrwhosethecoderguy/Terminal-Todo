@@ -76,6 +76,31 @@ fn main() {
             let idx: usize = (idx-1).try_into().unwrap();
             todo.remove(idx);
         }
+        else if command == "quit" {
+            let mut data: String = String::new();
+            for i in 0..todo.len() {
+                if i == todo.len()-1 {
+                    data.push_str(&todo[i].content.to_string());
+                }
+                else {
+                    data.push_str(&todo[i].content.to_string());
+                    data.push_str(",");
+                }
+            }
+            data.push_str("\n");
+            for i in 0..done.len() {
+                if i == done.len()-1 {
+                    data.push_str(&done[i].content.to_string());
+                }
+                else {
+                    data.push_str(&done[i].content.to_string());
+                    data.push_str(",");
+                }
+            }
+
+            fs::write("TODO.check", data).expect("Unable to write file");
+            break;
+        }
     }
 
 
